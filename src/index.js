@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import axios from "axios";
-
+import { Search } from "./components/Search";
 class App extends React.Component {
   constructor() {
     super();
@@ -9,9 +9,6 @@ class App extends React.Component {
   }
 
   // メソッドの実行　ライフサイクルメソッド
-  componentDidMount() {
-    this.giphyApi();
-  }
 
   renderImageList(list) {
     const imageList = list.map((url) => {
@@ -25,12 +22,17 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.gifUrlList);
-    return <div>{this.renderImageList(this.state.gifUrlList)}</div>;
+    // console.log(this.state.gifUrlList);
+    return (
+      <div>
+        <Search search={this.giphyApi} />
+        {this.renderImageList(this.state.gifUrlList)}
+      </div>
+    );
   }
 
-  giphyApi() {
-    const search = "cat";
+  giphyApi = (target) => {
+    const search = target;
     const key = "kDfPv4LBhui4UHt8t8KydiqaX1Yi0mrG";
     const limit = 10;
 
@@ -45,7 +47,7 @@ class App extends React.Component {
       // img.src = imageUrl;
       // document.body.appendChild(img);
     });
-  }
+  };
 }
 
 render(<App />, document.getElementById("root"));
